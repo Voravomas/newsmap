@@ -3,13 +3,12 @@ from copy import deepcopy
 
 from misc.common import make_request
 from misc.constants import MAX_IDS_PER_NEWS_PROVIDER
+from .article import PravdaArticle
 
 
 class NewsProvider:
     @classmethod
-    def fetch_new_links(cls, old_ids) -> bool:
-        # make a request for all_pub_url
-        # compare last article_id with collected last_article_id
+    def process(cls, old_ids):
         pass
 
 
@@ -17,6 +16,11 @@ class PravdaNewsProvider(NewsProvider):
     BASE_LINK = "https://www.pravda.com.ua"
     LINK_TO_ALL_ARTICLES = BASE_LINK + "/news/"
     CLASS_OF_ALL_ARTICLES = "container_sub_news_list_wrapper mode1"
+    LINK_TO_CLASS_MAPPINING = {
+        "https://www.pravda.com.ua/": PravdaArticle,
+        # TODO "Epravda":
+        # TODO "LifePravda":
+    }
 
     @classmethod
     def get_all_links(cls):
@@ -62,8 +66,32 @@ class PravdaNewsProvider(NewsProvider):
         ids_from_links = cls.links_to_ids(links)
         new_ids_filtered = cls.extract_new_ids(ids_from_links, old_ids)
         links_to_download = cls.get_links_to_download(new_ids_filtered, links)
-        return links_to_download
+        return new_ids_filtered, links_to_download
 
     @classmethod
     def form_last_article_ids(cls, old_ids, new_ids):
-        return (old_ids + new_ids)[:MAX_IDS_PER_NEWS_PROVIDER]
+        return (new_ids + old_ids)[:MAX_IDS_PER_NEWS_PROVIDER]
+
+    @classmethod
+    def identify_article(cls, link):
+        for article_link, article_type in cls.LINK_TO_CLASS_MAPPINING.items():
+            if link.startswith(article_link):
+                return article_type
+        raise Exception(f"Cannot identify type of article by link. Link: {link}")
+
+    @classmethod
+    def process(cls, old_ids):
+        new_ids, new_links = cls.fetch_new_links(old_ids)
+        processed_articles = []
+        updated_ids = cls.form_last_article_ids(old_ids, new_ids)
+
+        for link in new_links:
+            article_class = cls.identify_article(link)
+            processed_articles.append(article_class.process(link))
+
+        return updated_ids, processed_articles
+
+
+NEWS_PROVIDERS_MAPPING = {
+    "Pravda": PravdaNewsProvider
+}

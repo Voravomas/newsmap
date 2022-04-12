@@ -7,7 +7,7 @@ from misc.common import make_request
 
 class Article:
     @classmethod
-    def get_beautiful_page(cls, url):
+    def get_beautiful_page(cls, link):
         pass
 
     @classmethod
@@ -31,7 +31,7 @@ class Article:
         pass
 
     @classmethod
-    def get_page_data(cls, html_page):
+    def get_page_data(cls, url):
         pass
 
     @classmethod
@@ -40,6 +40,9 @@ class Article:
 
 
 class PravdaArticle(Article):
+    NEWS_PROVIDER_NAME = "Pravda"
+    ARTICLE_TYPE = "Pravda"
+    LANGUAGE = "UA"
     DATE_PUBLISHED_BLOCK_NAME = "post_time"
     TITLE_BLOCK_NAME = "post_title"
     TEXT_BODY_BLOCK_NAME = "post_text"
@@ -51,8 +54,8 @@ class PravdaArticle(Article):
     }
 
     @classmethod
-    def get_beautiful_page(cls, url):
-        page_raw = make_request(url)
+    def get_beautiful_page(cls, link):
+        page_raw = make_request(link)
         return BeautifulSoup(page_raw, 'html.parser')
 
     @classmethod
@@ -95,8 +98,8 @@ class PravdaArticle(Article):
         return list(element[0].stripped_strings)[1:]  # skipping "Теми: "
 
     @classmethod
-    def get_page_data(cls, html_page):
-        beautiful_page = cls.get_beautiful_page(html_page)
+    def get_page_data(cls, url):
+        beautiful_page = cls.get_beautiful_page(url)
         date_published = cls.extract_date_published(beautiful_page)
         title = cls.extract_title(beautiful_page)
         body = cls.extract_text_body(beautiful_page)
@@ -106,3 +109,24 @@ class PravdaArticle(Article):
     @classmethod
     def decompose_page_by_kw(cls, title, body, tags):
         return kwsearcher(title, body)
+
+    @classmethod
+    def to_json(cls, title, body, link, date_published, tags, regions):
+        return {
+            "title": title,
+            "body": body,
+            "news_provider_name": cls.NEWS_PROVIDER_NAME,
+            "article_type": cls.ARTICLE_TYPE,
+            "link": link,
+            "time_published": date_published,
+            "time_collected": str(datetime.now()),
+            "text_language": cls.LANGUAGE,
+            "tags": tags,
+            "regions": regions
+        }
+
+    @classmethod
+    def process(cls, link):
+        date_published, title, body, tags = cls.get_beautiful_page(link)
+        regions = cls.decompose_page_by_kw(title, body, tags)
+        return cls.to_json(title, body, link, date_published, tags, regions)
