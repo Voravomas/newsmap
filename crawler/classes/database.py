@@ -1,5 +1,4 @@
 from pymongo import MongoClient
-import pymongo
 
 from CREDENTIALS import CONNECTION_STRING, DB_NAME
 
@@ -42,4 +41,3 @@ class Database:
     @classmethod
     def load_article_data(cls, client, articles):
         return cls.load_documents(client, ARTICLE_COLLECTION_NAME, articles)
-
