@@ -111,14 +111,13 @@ class PravdaArticle(Article):
         return kwsearcher(title, body)
 
     @classmethod
-    def to_json(cls, title, body, link, date_published, tags, regions):
+    def to_json(cls, title, link, date_published, tags, regions):
         return {
             "title": title,
-            "body": body,
             "news_provider_name": cls.NEWS_PROVIDER_NAME,
             "article_type": cls.ARTICLE_TYPE,
             "link": link,
-            "time_published": date_published,
+            "time_published": str(date_published),
             "time_collected": str(datetime.now()),
             "text_language": cls.LANGUAGE,
             "tags": tags,
@@ -127,6 +126,6 @@ class PravdaArticle(Article):
 
     @classmethod
     def process(cls, link):
-        date_published, title, body, tags = cls.get_beautiful_page(link)
+        date_published, title, body, tags = cls.get_page_data(link)
         regions = cls.decompose_page_by_kw(title, body, tags)
-        return cls.to_json(title, body, link, date_published, tags, regions)
+        return cls.to_json(title, link, date_published, tags, regions)

@@ -18,6 +18,7 @@ def main():
     # TODO: execute crawler
     # TODO: load article_data to article
     # TODO: load ids to ids
+    # TODO: disconnect from DB
     # TODO: sleep N minutes
     pass
 
