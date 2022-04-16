@@ -3,7 +3,8 @@ from copy import deepcopy
 
 from misc.common import make_request
 from misc.constants import MAX_IDS_PER_NEWS_PROVIDER
-from .article import PravdaArticle
+from misc.exceptions import PageProcessError
+from .article import PravdaArticle, EconomyPravdaArticle, EuroPravdaArticle, LifePravdaArticle
 
 
 class NewsProvider:
@@ -18,8 +19,9 @@ class PravdaNewsProvider(NewsProvider):
     CLASS_OF_ALL_ARTICLES = "container_sub_news_list_wrapper mode1"
     LINK_TO_CLASS_MAPPINING = {
         "https://www.pravda.com.ua/": PravdaArticle,
-        # TODO "Epravda":
-        # TODO "LifePravda":
+        "https://www.epravda.com.ua/": EconomyPravdaArticle,
+        "https://www.eurointegration.com.ua/": EuroPravdaArticle,
+        "https://life.pravda.com.ua": LifePravdaArticle,
     }
 
     @classmethod
@@ -76,8 +78,10 @@ class PravdaNewsProvider(NewsProvider):
     def identify_article(cls, link):
         for article_link, article_type in cls.LINK_TO_CLASS_MAPPINING.items():
             if link.startswith(article_link):
-                return article_type
-        raise Exception(f"Cannot identify type of article by link. Link: {link}")
+              return article_type
+        print(link, " is skipped because not implemented yet")
+        return ""
+        # raise Exception(f"Cannot identify type of article by link. Link: {link}")
 
     @classmethod
     def process(cls, old_ids):
@@ -87,7 +91,14 @@ class PravdaNewsProvider(NewsProvider):
 
         for link in new_links:
             article_class = cls.identify_article(link)
-            processed_articles.append(article_class.process(link))
+            if not article_class:
+                continue
+            try:
+                processed_article = article_class.process(link)
+            except Exception as err:
+                raise PageProcessError(article_class.ARTICLE_TYPE, link, err)
+            processed_articles.append(processed_article)
+            print("processed article: ", link)
 
         return updated_ids, processed_articles
 

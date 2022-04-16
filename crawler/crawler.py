@@ -6,11 +6,11 @@ from misc.constants import TIMEOUT_SECONDS
 
 
 def crawler(news_data: dict):
-    article_data = dict()
+    article_data = list()
     id_data = dict()
     for news_provider_name, news_provider_ids in news_data.items():
         ids, articles = NEWS_PROVIDERS_MAPPING[news_provider_name].process(news_provider_ids)
-        article_data[news_provider_name] = articles
+        article_data += articles
         id_data[news_provider_name] = ids
     return article_data, id_data
 
@@ -26,3 +26,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# TODO:
+# 1. add logging
+# 2. add error handling

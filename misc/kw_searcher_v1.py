@@ -36,7 +36,7 @@ SYMBOLS = [".", ",", "!", "?", ":", "-", "–"]
 
 MINIMUM_CROPPED_RAYON_WORD = 4
 
-KEYWORDS_LOCATION = "misc/result2.json"
+KEYWORDS_LOCATION = "../misc/result2.json"
 
 
 def download(path):
@@ -81,6 +81,8 @@ def leave_only_capitalized(text: str):
     for word in text:
         word = word.strip()
         word = word.strip("\"")
+        if not word:
+            continue
         if any(char.isdigit() for char in word):
             continue
         if word[0].capitalize() != word[0]:
