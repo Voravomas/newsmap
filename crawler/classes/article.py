@@ -44,8 +44,13 @@ class Article:
         return kwsearcher(title, body)
 
     @classmethod
+    def link_to_id(cls, link):
+        pass
+
+    @classmethod
     def to_json(cls, title, link, date_published, tags, regions):
         return {
+            "id": cls.link_to_id(link),
             "title": title,
             "news_provider_name": cls.NEWS_PROVIDER_NAME,
             "article_type": cls.ARTICLE_TYPE,
@@ -72,6 +77,10 @@ class PravdaTypeArticle(Article):
     TITLE_BLOCK_NAME = ""
     TEXT_BODY_BLOCK_NAME = ""
     TAGS_BLOCK_NAME = ""
+
+    @classmethod
+    def link_to_id(cls, link):
+        return link.split("/")[-2]
 
     @classmethod
     def convert_date(cls, date_raw):
