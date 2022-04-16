@@ -16,13 +16,13 @@ def crawler(news_data: dict):
         id_data[news_provider_name] = ids
         logging.info(f"Received {len(articles)} articles. Their names: {[article['title'] for article in articles]}")
         logging.info(f"Updated ids are: {ids}")
-        logging.info(f"Finished processing \"{news_provider_name}\"")
+        logging.info(f"Finished processing \"{news_provider_name}\"\n")
     return article_data, id_data
 
 
 def main():
     logging.basicConfig(format='[%(asctime)s] Message: %(message)s', level=logging.INFO)
-    logging.info("The system has started")
+    logging.info("The system has started\n")
     while True:
         client = Database.get_client()
         news_providers_data = Database.get_news_providers_data(client)
