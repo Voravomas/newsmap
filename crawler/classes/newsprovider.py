@@ -1,8 +1,10 @@
+import logging
 from bs4 import BeautifulSoup
 from copy import deepcopy
+from time import sleep
 
 from misc.common import make_request
-from misc.constants import MAX_IDS_PER_NEWS_PROVIDER
+from misc.constants import MAX_IDS_PER_NEWS_PROVIDER, TIMEOUT_BETWEEN_LINKS_REQUESTS
 from misc.exceptions import PageProcessError
 from .article import PravdaArticle, EconomyPravdaArticle, EuroPravdaArticle, LifePravdaArticle
 
@@ -64,10 +66,13 @@ class PravdaNewsProvider(NewsProvider):
 
     @classmethod
     def fetch_new_links(cls, old_ids):
+        logging.info("Fetching new links...")
         links = cls.get_all_links()
+        logging.info(f"Got {len(links)} total links")
         ids_from_links = cls.links_to_ids(links)
         new_ids_filtered = cls.extract_new_ids(ids_from_links, old_ids)
         links_to_download = cls.get_links_to_download(new_ids_filtered, links)
+        logging.info(f"Got {len(links_to_download)} NEW links after filtering")
         return new_ids_filtered, links_to_download
 
     @classmethod
@@ -79,7 +84,6 @@ class PravdaNewsProvider(NewsProvider):
         for article_link, article_type in cls.LINK_TO_CLASS_MAPPINING.items():
             if link.startswith(article_link):
               return article_type
-        print(link, " is skipped because not implemented yet")
         return ""
         # raise Exception(f"Cannot identify type of article by link. Link: {link}")
 
@@ -90,15 +94,20 @@ class PravdaNewsProvider(NewsProvider):
         updated_ids = cls.form_last_article_ids(old_ids, new_ids)
 
         for link in new_links:
+            logging.info(f"Processing link: {link}")
             article_class = cls.identify_article(link)
+            logging.info(f"Article class: \"{article_class.ARTICLE_TYPE if article_class else 'None'}\"")
             if not article_class:
+                logging.info(f"Skipping {link} link because it is not implemented yet")
                 continue
             try:
                 processed_article = article_class.process(link)
             except Exception as err:
                 raise PageProcessError(article_class.ARTICLE_TYPE, link, err)
             processed_articles.append(processed_article)
-            print("processed article: ", link)
+            logging.info("Article successfully processed")
+            logging.info(f"Sleeping {TIMEOUT_BETWEEN_LINKS_REQUESTS} seconds...\n")
+            sleep(TIMEOUT_BETWEEN_LINKS_REQUESTS)
 
         return updated_ids, processed_articles
 
