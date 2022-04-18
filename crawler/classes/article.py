@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-from misc.kw_searcher_v1 import kwsearcher
+from misc.kw_searcher_v2 import kwsearcher
 from misc.common import make_request
 
 

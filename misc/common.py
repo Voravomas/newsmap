@@ -1,5 +1,6 @@
 from requests import get, RequestException
 from backoff import on_exception, expo
+from json import load, dump
 
 from .exceptions import RetryableRequestError, NonRetryableRequestError
 from .constants import MAX_RETRIES
@@ -8,6 +9,18 @@ from .constants import MAX_RETRIES
 def _log_backoff(details: dict) -> None:
     print(f"Backing off {details['wait']:0.1f} seconds after {details['tries']} tries. "
           f"Request details: {details['args']} {details['kwargs']}")
+
+
+def json_download(path):
+    with open(path, "r") as f:
+        data = load(f)
+    return data
+
+
+def text_download(path):
+    with open(path, "r") as f:
+        data = f.read()
+    return data
 
 
 @on_exception(expo, RetryableRequestError,
