@@ -3,3 +3,5 @@
 __pycache__/
 .DS_Store
 CREDENTIALS.py
+venv/
+not_tracked/

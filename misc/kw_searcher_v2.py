@@ -2,9 +2,9 @@ from .common import json_download
 
 SYMBOLS = [".", ",", "!", "?", ":", "-", "–", "*", "/", "\\"]
 
-ALL_WORDS = set(json_download("misc/word_data/all_words.json")["words"])
-WORD_CASES = json_download("misc/word_data/words_cases_to_main.json")
-WORD_INFO = json_download("misc/word_data/word_info.json")
+ALL_WORDS = set(json_download("../misc/word_data/all_words.json")["words"])
+WORD_CASES = json_download("../misc/word_data/words_cases_to_main.json")
+WORD_INFO = json_download("../misc/word_data/word_info.json")
 
 
 def leave_only_capitalized(text: str):

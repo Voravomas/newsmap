@@ -41,7 +41,8 @@ class Article:
 
     @classmethod
     def decompose_page_by_kw(cls, title, body, tags):
-        return kwsearcher(title, body)
+        title_and_body = f"{title}\n{body}"
+        return kwsearcher(title_and_body)
 
     @classmethod
     def link_to_id(cls, link):
