@@ -40,5 +40,4 @@ if __name__ == '__main__':
     main()
 
 
-# TODO: add support for cities
-# TODO: add analyzer after kw
+# TODO: add more newsproviders

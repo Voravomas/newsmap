@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 from misc.kw_searcher_v2 import kwsearcher
+from misc.analyser import analyser
 from misc.common import make_request
 
 
@@ -41,8 +42,8 @@ class Article:
 
     @classmethod
     def decompose_page_by_kw(cls, title, body, tags):
-        title_and_body = f"{title}\n{body}"
-        return kwsearcher(title_and_body)
+        kws = kwsearcher(f"{title}\n{body}")
+        return analyser(kws, tags)
 
     @classmethod
     def link_to_id(cls, link):
@@ -51,7 +52,7 @@ class Article:
     @classmethod
     def to_json(cls, title, link, date_published, tags, regions):
         return {
-            "id": cls.link_to_id(link),
+            "article_id": cls.link_to_id(link),
             "title": title,
             "news_provider_name": cls.NEWS_PROVIDER_NAME,
             "article_type": cls.ARTICLE_TYPE,

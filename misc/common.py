@@ -1,6 +1,6 @@
 from requests import get, RequestException
 from backoff import on_exception, expo
-from json import load, dump
+from json import load
 
 from .exceptions import RetryableRequestError, NonRetryableRequestError
 from .constants import MAX_RETRIES
