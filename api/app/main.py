@@ -23,7 +23,7 @@ async def read_root():
 @app.get(
     "/articles/{from_time}/{to_time}",
     response_description="List articles by time and regions",
-    response_model=Dict[int, List[ArticleModel]]
+    response_model=Dict[str, Dict[str, List[ArticleModel]]]
 )
 async def list_articles(from_time: int, to_time: int):
     if to_time < from_time:
@@ -35,3 +35,5 @@ async def list_articles(from_time: int, to_time: int):
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
+# TODO: add pagination for db articles

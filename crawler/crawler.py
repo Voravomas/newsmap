@@ -41,3 +41,4 @@ if __name__ == '__main__':
 
 
 # TODO: add more newsproviders
+# TODO: at the beginning of text processing lower words after "\n" and "."
