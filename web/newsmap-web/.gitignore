@@ -1,17 +1,7 @@
-*.pyc
-*.pyo
-__pycache__/
-.DS_Store
-CREDENTIALS.py
-venv/
-not_tracked/
-web/my-app
-web/.idea
-
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/web/node_modules
+/node_modules
 /.pnp
 .pnp.js
 
@@ -22,6 +12,7 @@ web/.idea
 /build
 
 # misc
+.DS_Store
 .env.local
 .env.development.local
 .env.test.local
@@ -30,4 +21,3 @@ web/.idea
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-

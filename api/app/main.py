@@ -1,6 +1,7 @@
 import uvicorn
 import motor.motor_asyncio
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from asyncio import get_event_loop
 from typing import List, Dict
 
@@ -8,8 +9,23 @@ from CREDENTIALS import CONNECTION_STRING, DB_NAME
 from .models import ArticleModel
 from .utils import aggregate_articles_by_regions
 
+origins = [
+    "http://localhost.tiangolo.com",
+    "https://localhost.tiangolo.com",
+    "http://localhost",
+    "http://localhost:3000",
+]
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 client = motor.motor_asyncio.AsyncIOMotorClient(CONNECTION_STRING)
 client.get_io_loop = get_event_loop
 db = client[DB_NAME]
