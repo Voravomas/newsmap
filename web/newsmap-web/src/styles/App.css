@@ -10,5 +10,23 @@
 }
 
 .App {
-    width: 800px;
+    width: 1200px;
+}
+
+#container {
+    height: 500px;
+    min-width: 310px;
+    margin: 0 auto;
+}
+
+.loading {
+    margin-top: 10em;
+    text-align: center;
+    color: gray;
+}
+
+.Map_and_article {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

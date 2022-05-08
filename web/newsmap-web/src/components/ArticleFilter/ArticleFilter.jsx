@@ -1,16 +1,17 @@
 import React from 'react';
-import MyInput from "./UI/input/MyInput";
-import MyButton from "./UI/button/MyButton";
+import MyInput from "../UI/input/MyInput";
+import MyButton from "../UI/button/MyButton";
+import classes from './ArticleFilter.module.css'
 
 const ArticleFilter = ({timeConfig, setTimeConfig, getArticlesFunction, setArticles}) => {
     return (
-        <div style={{display: 'flex', justifyContent: 'space-between', flexFlow: 'row nowrap'}}>
-            <p style={{marginTop: '20px'}}>From time: </p>
+        <div className={classes.articleFilter}>
+            <p className={classes.fromToText}>From time: </p>
             <MyInput
                 value={timeConfig.fromTime}
                 onChange={e => setTimeConfig({...timeConfig, fromTime: e.target.value})}
             />
-            <p style={{marginTop: '20px'}}>To time: </p>
+            <p className={classes.fromToText}>To time: </p>
             <MyInput
                 value={timeConfig.toTime}
                 onChange={e => setTimeConfig({...timeConfig, toTime: e.target.value})}

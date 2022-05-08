@@ -1,0 +1,10 @@
+.articleFilter {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+    width: 800px;
+}
+
+.fromToText {
+    margin-top: 20px;
+}
