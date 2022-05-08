@@ -19,6 +19,14 @@ class PyObjectId(ObjectId):
         field_schema.update(type="string")
 
 
+class RegionRequest(BaseModel):
+    from_time: int
+    to_time: int
+    region: int
+    limit: int
+    offset: int
+
+
 class ArticleModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     article_id: str = Field(...)

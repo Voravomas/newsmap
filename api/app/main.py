@@ -1,13 +1,14 @@
 import uvicorn
 import motor.motor_asyncio
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from asyncio import get_event_loop
 from typing import List, Dict
 
 from CREDENTIALS import CONNECTION_STRING, DB_NAME
-from .models import ArticleModel
-from .utils import aggregate_articles_by_regions
+from models import ArticleModel, RegionRequest
+from utils import (validate_time, get_articles_in_region,
+                   get_number_of_news_in_region, validate_limit, validate_offset)
 
 origins = [
     "http://localhost.tiangolo.com",
@@ -37,19 +38,33 @@ async def read_root():
 
 
 @app.get(
-    "/articles/{from_time}/{to_time}",
-    response_description="List articles by time and regions",
-    response_model=Dict[str, Dict[str, List[ArticleModel]]]
+    "/articles/total/{from_time}/{to_time}",
+    response_description="Lists total number of articles per region",
+    response_model=Dict[str, Dict[int, int]]
 )
-async def list_articles(from_time: int, to_time: int):
-    if to_time < from_time:
-        raise HTTPException(status_code=400, detail="'To time' cannot go before 'From time'")
-    if from_time < 0:
-        raise HTTPException(status_code=400, detail="Timestamp cannot be negative")
-    articles = await db["articles"].find({"published_timestamp": {"$gte": from_time, "$lte": to_time}}).to_list(1000)  # TODO: implement batching
-    return {"articles": aggregate_articles_by_regions(articles)}
+async def get_total_articles(from_time: int, to_time: int):
+    validate_time(from_time, to_time)
+    fin_dict = await get_number_of_news_in_region(db["articles"], from_time, to_time)
+    return {"response": fin_dict}
+
+
+@app.post(
+    "/articles/",
+    response_description="Lists articles by region and time period",
+    response_model=Dict[str, List[ArticleModel]]
+)
+async def get_articles_by_region(request_data: RegionRequest):
+    validate_time(request_data.from_time, request_data.to_time)
+    validate_limit(request_data.limit)
+    validate_offset(request_data.offset)
+
+    data = await get_articles_in_region(db["articles"],
+                                        request_data.from_time,
+                                        request_data.to_time,
+                                        request_data.region,
+                                        request_data.limit,
+                                        request_data.offset)
+    return {"response": data}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
-# TODO: add pagination for db articles
