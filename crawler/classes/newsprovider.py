@@ -83,7 +83,7 @@ class PravdaNewsProvider(NewsProvider):
     def identify_article(cls, link):
         for article_link, article_type in cls.LINK_TO_CLASS_MAPPINING.items():
             if link.startswith(article_link):
-              return article_type
+                return article_type
         return ""
         # raise Exception(f"Cannot identify type of article by link. Link: {link}")
 
@@ -104,7 +104,11 @@ class PravdaNewsProvider(NewsProvider):
                 processed_article = article_class.process(link)
             except Exception as err:
                 raise PageProcessError(article_class.ARTICLE_TYPE, link, err)
-            processed_articles.append(processed_article)
+            if not processed_article["regions"]:
+                logging.info("Article is NOT added because no regions were found")
+            else:
+                logging.info("Article is added")
+                processed_articles.append(processed_article)
             logging.info("Article successfully processed")
             logging.info(f"Sleeping {TIMEOUT_BETWEEN_LINKS_REQUESTS} seconds...\n")
             sleep(TIMEOUT_BETWEEN_LINKS_REQUESTS)

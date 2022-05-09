@@ -33,9 +33,24 @@ def leave_only_capitalized(text: str):
     return filtered_text
 
 
+def lower_at_start(text):
+    separators = ["\n", ".", "\""]
+    lower_next = True
+    fin_text = ""
+    for symbol in text:
+        if symbol in separators:
+            lower_next = True
+        if lower_next and symbol.isalpha():
+            fin_text += symbol.lower()
+            lower_next = False
+            continue
+        fin_text += symbol
+    return fin_text
+
+
 def kwsearcher(title_and_body):
     fin_list = []
-    words_with_capital_letters = leave_only_capitalized(title_and_body)
+    words_with_capital_letters = leave_only_capitalized(lower_at_start(title_and_body))
     words_with_capital_letters = [word.lower() for word in words_with_capital_letters]
     actual_names = set(words_with_capital_letters).intersection(ALL_WORDS)
     for word in actual_names:

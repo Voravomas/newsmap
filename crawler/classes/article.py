@@ -52,7 +52,7 @@ class Article:
     @classmethod
     def to_json(cls, title, link, date_published, tags, regions):
         return {
-            "article_id": cls.link_to_id(link),
+            "article_id": f"{cls.NEWS_PROVIDER_NAME.lower().replace(' ', '_')}_{cls.link_to_id(link)}",
             "title": title,
             "news_provider_name": cls.NEWS_PROVIDER_NAME,
             "article_type": cls.ARTICLE_TYPE,
