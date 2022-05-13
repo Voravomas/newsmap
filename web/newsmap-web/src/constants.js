@@ -1,4 +1,4 @@
-const OBLAST_TO_NUM = {
+export const OBLAST_TO_NUM = {
     '1': 'Автономна Республіка Крим',
     '2': 'Вінницька область',
     '3': 'Волинська область',
@@ -26,4 +26,4 @@ const OBLAST_TO_NUM = {
     '25': 'Чернігівська область'
 }
 
-export default OBLAST_TO_NUM
+export const DEFAULT_LIMIT = 3;

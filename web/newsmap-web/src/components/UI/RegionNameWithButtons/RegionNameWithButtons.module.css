@@ -1,0 +1,12 @@
+.RegionNameWithButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.h2 {
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
