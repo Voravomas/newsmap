@@ -27,3 +27,6 @@ export const OBLAST_TO_NUM = {
 }
 
 export const DEFAULT_LIMIT = 3;
+
+export const MIN_DATE = "2022-02-24";
+export const MAX_DATE = "2023-02-24";
