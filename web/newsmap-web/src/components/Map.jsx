@@ -18,7 +18,7 @@ const Map = ({totalArticles, setSelectedRegion, setArticles, timeConfig, setRequ
             map: ua_data,
             title:{
                 text:''
-            }
+            },
         },
         plotOptions:{
             series:{

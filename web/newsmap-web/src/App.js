@@ -11,7 +11,7 @@ function App() {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [articles, setArticles] = useState([]);
   const [requestOffset, setRequestOffset] = useState(0);
-  const [timeConfig, setTimeConfig] = useState({fromTime: 1650990000, toTime: 1651072236});
+  const [timeConfig, setTimeConfig] = useState({fromTime: 1645660800, toTime: 1677196800});
 
     return (
     <div className="App">
