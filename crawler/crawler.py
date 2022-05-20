@@ -40,4 +40,5 @@ if __name__ == '__main__':
     main()
 
 
-# TODO: add more newsproviders
+# TODO: add censor.net
+# TODO: make mongo use valid ids
