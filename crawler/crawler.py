@@ -29,7 +29,7 @@ def main():
         logging.info("Executing crawler...")
         article_data, id_data = crawler(news_providers_data)
         logging.info("Crawler successfully executed")
-        Database.load_article_data(client, article_data)
+        Database.load_documents(client, article_data)
         Database.update_news_providers_ids(client, id_data)
         logging.info(f"Iteration succeeded.")
         logging.info(f"Sleeping {TIMEOUT_SECONDS} seconds...")
@@ -41,4 +41,3 @@ if __name__ == '__main__':
 
 
 # TODO: add more newsproviders
-# TODO: at the beginning of text processing lower words after "\n" and "."

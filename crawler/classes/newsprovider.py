@@ -10,6 +10,17 @@ from .article import PravdaArticle, EconomyPravdaArticle, EuroPravdaArticle, Lif
 
 
 class NewsProvider:
+    LINK_TO_ALL_ARTICLES = ""
+    LINK_TO_CLASS_MAPPING = dict()
+
+    @classmethod
+    def fetch_new_links(cls, old_ids):
+        pass
+
+    @classmethod
+    def identify_article(cls, link):
+        pass
+
     @classmethod
     def process(cls, old_ids):
         pass
@@ -19,7 +30,7 @@ class PravdaNewsProvider(NewsProvider):
     BASE_LINK = "https://www.pravda.com.ua"
     LINK_TO_ALL_ARTICLES = BASE_LINK + "/news/"
     CLASS_OF_ALL_ARTICLES = "container_sub_news_list_wrapper mode1"
-    LINK_TO_CLASS_MAPPINING = {
+    LINK_TO_CLASS_MAPPING = {
         "https://www.pravda.com.ua/": PravdaArticle,
         "https://www.epravda.com.ua/": EconomyPravdaArticle,
         "https://www.eurointegration.com.ua/": EuroPravdaArticle,
@@ -81,7 +92,7 @@ class PravdaNewsProvider(NewsProvider):
 
     @classmethod
     def identify_article(cls, link):
-        for article_link, article_type in cls.LINK_TO_CLASS_MAPPINING.items():
+        for article_link, article_type in cls.LINK_TO_CLASS_MAPPING.items():
             if link.startswith(article_link):
                 return article_type
         return ""

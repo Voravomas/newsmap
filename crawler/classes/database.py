@@ -23,7 +23,8 @@ class Database:
         return collection
 
     @classmethod
-    def load_documents(cls, client, collection_name, documents):
+    def load_documents(cls, client, documents):
+        collection_name = ARTICLE_COLLECTION_NAME
         collection = cls.get_collection(client, collection_name)
         logging.info(f"Loading {len(documents)} documents to collection \"{collection_name}\"...")
         collection.insert_many(documents)
@@ -49,7 +50,3 @@ class Database:
             new_values = {"$set": {"news_provider_ids": news_provider_ids}}
             collection.update_one(query, new_values)
             logging.info(f"\"{news_provider_name}\" successfully updated")
-
-    @classmethod
-    def load_article_data(cls, client, articles):
-        return cls.load_documents(client, ARTICLE_COLLECTION_NAME, articles)

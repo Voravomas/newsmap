@@ -6,8 +6,8 @@ from asyncio import get_event_loop
 from typing import List, Dict
 
 from CREDENTIALS import CONNECTION_STRING, DB_NAME
-from models import ArticleModel, RegionRequest
-from utils import (validate_time, get_articles_in_region,
+from .models import ArticleModel, RegionRequest
+from .utils import (validate_time, get_articles_in_region,
                    get_number_of_news_in_region, validate_limit, validate_offset)
 
 origins = [
