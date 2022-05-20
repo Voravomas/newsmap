@@ -48,11 +48,20 @@ def lower_at_start(text):
     return fin_text
 
 
+def add_double_word_cases(word_list):
+    doubled_words = []
+    if len(word_list) < 2:
+        return word_list
+    for idx in range(len(word_list) - 1):
+        doubled_words.append(f"{word_list[idx]} {word_list[idx + 1]}")
+    return word_list + doubled_words
+
+
 def kwsearcher(title_and_body):
     fin_list = []
     words_with_capital_letters = leave_only_capitalized(lower_at_start(title_and_body))
     words_with_capital_letters = [word.lower() for word in words_with_capital_letters]
-    actual_names = set(words_with_capital_letters).intersection(ALL_WORDS)
+    actual_names = set(add_double_word_cases(words_with_capital_letters)).intersection(ALL_WORDS)
     for word in actual_names:
         word_in_prim_form_list = WORD_CASES[word]
         for word_in_prim_form in word_in_prim_form_list:
