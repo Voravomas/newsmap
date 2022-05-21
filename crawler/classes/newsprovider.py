@@ -1,6 +1,5 @@
 import logging
 from bs4 import BeautifulSoup
-from copy import deepcopy
 from time import sleep
 
 from misc.common import make_request
@@ -9,12 +8,17 @@ from misc.exceptions import PageProcessError
 from .article import (PravdaArticle, EconomyPravdaArticle,
                       EuroPravdaArticle, LifePravdaArticle,
                       NVArticle, NVLifeArticle, NVBizArticle,
-                      NVTechnoArticle, NVHealthArticle)
+                      NVTechnoArticle, NVHealthArticle, CensorNetArticle)
 
 
 class NewsProvider:
     LINK_TO_ALL_ARTICLES = ""
     LINK_TO_CLASS_MAPPING = dict()
+    BASE_ARTICLE_CLASS = object
+
+    @classmethod
+    def get_all_links(cls):
+        pass
 
     @classmethod
     def fetch_new_links(cls, old_ids):
@@ -28,8 +32,17 @@ class NewsProvider:
         return new_ids_filtered, links_to_download
 
     @classmethod
-    def get_all_links(cls):
-        pass
+    def links_to_ids(cls, links):
+        return [cls.BASE_ARTICLE_CLASS.link_to_id(cls.BASE_ARTICLE_CLASS.NEWS_PROVIDER_NAME, link) for link in links]
+
+    @classmethod
+    def get_links_to_download(cls, ids, all_links):
+        needed_links = []
+        for link in all_links:
+            link_id = cls.BASE_ARTICLE_CLASS.link_to_id(cls.BASE_ARTICLE_CLASS.NEWS_PROVIDER_NAME, link)
+            if link_id in ids:
+                needed_links.append(link)
+        return needed_links
 
     @classmethod
     def form_last_article_ids(cls, old_ids, new_ids):
@@ -84,6 +97,7 @@ class PravdaNewsProvider(NewsProvider):
     BASE_LINK = "https://www.pravda.com.ua"
     LINK_TO_ALL_ARTICLES = BASE_LINK + "/news/"
     CLASS_OF_ALL_ARTICLES = "container_sub_news_list_wrapper mode1"
+    BASE_ARTICLE_CLASS = PravdaArticle
     LINK_TO_CLASS_MAPPING = {
         "https://www.pravda.com.ua/": PravdaArticle,
         "https://www.epravda.com.ua/": EconomyPravdaArticle,
@@ -105,29 +119,13 @@ class PravdaNewsProvider(NewsProvider):
             links.append(link)
         return links
 
-    @classmethod
-    def links_to_ids(cls, links):
-        return [link.split("/")[-2] for link in links]
-
-    @classmethod
-    def get_links_to_download(cls, ids, all_links):
-        needed_links = []
-        temp_ids = deepcopy(ids)
-        for link in all_links:
-            for single_id in temp_ids:
-                formatted_id = f"/{single_id}/"
-                if link.endswith(formatted_id):
-                    needed_links.append(link)
-                    temp_ids.remove(single_id)
-                    break
-        return needed_links
-
 
 class NVNewsProvider(NewsProvider):
     BASE_LINK = "https://nv.ua/"
     LINK_TO_ALL_ARTICLES = BASE_LINK + "ukr/allnews.html"
     CLASS_OF_ALL_ARTICLES = "col-lg-9"
     CLASS_OF_ARTICLE = "row-result-body"
+    BASE_ARTICLE_CLASS = NVArticle
     LINK_TO_CLASS_MAPPING = {
         "https://nv.ua/": NVArticle,
         "https://biz.nv.ua/": NVLifeArticle,
@@ -148,20 +146,32 @@ class NVNewsProvider(NewsProvider):
                 links.append(link_obj.attrs['href'])
         return links
 
-    @classmethod
-    def links_to_ids(cls, links):
-        return [link.split("-")[-1].split(".html")[0] for link in links]
+
+class CensorNetNewsProvider(NewsProvider):
+    BASE_LINK = "https://censor.net/"
+    LINK_TO_ALL_ARTICLES = BASE_LINK + "ua/news/all"
+    BASE_ARTICLE_CLASS = CensorNetArticle
+    LINK_TO_CLASS_MAPPING = {
+        "https://censor.net/": CensorNetArticle,
+    }
+    CLASS_OF_ALL_ARTICLES = "col-12 items-list"
+    CLASS_OF_ARTICLE = "news-list-item__link"
 
     @classmethod
-    def get_links_to_download(cls, ids, all_links):
-        needed_links = []
-        for link in all_links:
-            if link.split("-")[-1].split(".html")[0] in ids:
-                needed_links.append(link)
-        return needed_links
+    def get_all_links(cls):
+        links = []
+        page = make_request(cls.LINK_TO_ALL_ARTICLES)
+        soup = BeautifulSoup(page, 'html.parser')
+        all_articles = soup.find_all("div", {"class": cls.CLASS_OF_ALL_ARTICLES})
+        all_links = all_articles[0].findChildren("a", recursive=True)
+        for link_obj in all_links:
+            if link_obj.attrs['class'][0] == cls.CLASS_OF_ARTICLE:
+                links.append(link_obj.attrs['href'])
+        return links
 
 
 NEWS_PROVIDERS_MAPPING = {
     "Pravda": PravdaNewsProvider,
-    "NV": NVNewsProvider
+    "NV": NVNewsProvider,
+    "CensorNet": CensorNetNewsProvider
 }

@@ -3,7 +3,7 @@ from backoff import on_exception, expo
 from json import load
 
 from .exceptions import RetryableRequestError, NonRetryableRequestError
-from .constants import MAX_RETRIES
+from .constants import MAX_RETRIES, DEFAULT_HEADERS
 
 
 def _log_backoff(details: dict) -> None:
@@ -27,7 +27,7 @@ def text_download(path):
               max_tries=MAX_RETRIES, on_backoff=_log_backoff)
 def make_request(link):
     try:
-        response = get(link)
+        response = get(link, headers=DEFAULT_HEADERS)
         response.raise_for_status()
     except RequestException as err:
         print(f"Got {response.status_code} error: {err}, response: {response}")

@@ -33,8 +33,9 @@ class Article:
         pass
 
     @classmethod
-    def link_to_id(cls, news_provider_name_raw, link):
-        pass
+    def link_to_id(cls, news_provider_name_raw, link_id):
+        news_provider_name = news_provider_name_raw.lower().replace(' ', '_')
+        return f"{news_provider_name}_{link_id}"
 
     @classmethod
     def get_beautiful_page(cls, link):
@@ -90,9 +91,7 @@ class PravdaTypeArticle(Article):
 
     @classmethod
     def link_to_id(cls, news_provider_name_raw, link):
-        news_provider_name = news_provider_name_raw.lower().replace(' ', '_')
-        link_id = link.split("/")[-2]
-        return f"{news_provider_name}_{link_id}"
+        return Article.link_to_id(news_provider_name_raw, link.split("/")[-2])
 
     @classmethod
     def convert_date(cls, date_raw):
@@ -256,9 +255,8 @@ class NVTypeArticle(Article):
 
     @classmethod
     def link_to_id(cls, news_provider_name_raw, link):
-        news_provider_name = news_provider_name_raw.lower().replace(' ', '_')
         link_id = link.split("-")[-1].split(".html")[0]
-        return f"{news_provider_name}_{link_id}"
+        return Article.link_to_id(news_provider_name_raw, link_id)
 
 
 class NVArticle(NVTypeArticle):
@@ -279,3 +277,53 @@ class NVTechnoArticle(NVTypeArticle):
 
 class NVHealthArticle(NVTypeArticle):
     ARTICLE_TYPE = "NVHealth"
+
+
+class CensorNetArticle(Article):
+    NEWS_PROVIDER_NAME = "CensorNet"
+    ARTICLE_TYPE = "CensorNet"
+    DATE_PUBLISHED_BLOCK_NAME = "g-time"
+    LANGUAGE = "UA"
+    TEXT_BODY_BLOCK_NAME = "news-text"
+    BODY_TAGS = ["p"]
+    TAGS_BLOCK_NAME = "news-tags"
+
+    @classmethod
+    def convert_date(cls, date_raw):
+        # 21.05.22 18:47
+        date_pub, time_pub = date_raw.split()
+        d, mn, y = date_pub.split(".")
+        h, mt = time_pub.split(":")
+        return datetime(2000 + int(y), int(mn), int(d), int(h), int(mt))
+
+    @classmethod
+    def extract_date_published(cls, beautiful_page):
+        element = beautiful_page.find_all("time",
+                                          {"class": cls.DATE_PUBLISHED_BLOCK_NAME})
+        date_raw = str(element[0].contents[0].string).strip()
+        return cls.convert_date(date_raw)
+
+    @classmethod
+    def extract_title(cls, beautiful_page):
+        return str(beautiful_page.find_all("h1")[0].contents[0]).replace(chr(160), " ").strip()
+
+    @classmethod
+    def extract_text_body(cls, beautiful_page):
+        elements_raw = beautiful_page.find_all("div",
+                                               {"class": cls.TEXT_BODY_BLOCK_NAME})
+        elements = []
+        for tag_name in cls.BODY_TAGS:
+            raw_elements = elements_raw[0].findChildren(tag_name, recursive=True)
+            elements += [elm for elm in raw_elements if elm.get('class', [""])[0] != "related-news"]
+        elements_wo_tags = [' '.join(elm.stripped_strings) for elm in elements]
+        return "\n".join(elements_wo_tags).replace(chr(160), " ")
+
+    @classmethod
+    def extract_tags(cls, beautiful_page):
+        element = beautiful_page.find_all("div", {"class": cls.TAGS_BLOCK_NAME})
+        raw_tags = list(element[0].stripped_strings)
+        return [elm for elm in raw_tags if not elm.startswith("(")]  # skipping "(123)"
+
+    @classmethod
+    def link_to_id(cls, news_provider_name_raw, link):
+        return Article.link_to_id(news_provider_name_raw, link.split("/")[5])
