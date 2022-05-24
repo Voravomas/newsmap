@@ -30,3 +30,28 @@ export const DEFAULT_LIMIT = 3;
 
 export const MIN_DATE = "2022-02-24";
 export const MAX_DATE = "2023-02-24";
+export const DEFAULT_START_TIMESTAMP = 1645660800;
+export const DEFAULT_END_TIMESTAMP = 1677196800;
+
+export const sampleArticle = {
+    "_id": "626828608192fce6457c4bc0",
+    "article_id": "686282",
+    "title": "Уряд виділив додаткові 400 мільйонів на відновлення критичної інфраструктури",
+    "news_provider_name": "Pravda",
+    "article_type": "economyPravda",
+    "link": "https://www.epravda.com.ua/news/2022/04/26/686282/",
+    "time_published": "2022-04-26 19:11:00",
+    "published_timestamp": 1650989460,
+    "time_collected": "2022-04-26 20:14:06.108438",
+    "text_language": "UA",
+    "tags": [
+        "Кабмін",
+        "гроші",
+        "війна",
+        "інфраструктура"
+    ],
+    "confidence": 1,
+    "places": [
+        "Харківська"
+    ]
+}

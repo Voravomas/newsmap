@@ -1,0 +1,20 @@
+.datePicker {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 60px;
+    border: 3px solid #E3EBEE;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-right: 40px;
+}
+
+.fromToText {
+    font-weight: bold;
+    margin-right: 15px;
+    color: #232360;
+}
+
+.input {
+    background-color: #F3F7FA;
+}

@@ -1,9 +1,9 @@
 import React from 'react';
 import Highcharts from "highcharts/highmaps";
 import HighchartsReact from "highcharts-react-official";
-import ua_data from "../ua-topo.json";
-import ArticleService from "../API/ArticleService";
-import {DEFAULT_LIMIT} from "../constants";
+import ua_data from "../../ua-topo.json";
+import ArticleService from "../../API/ArticleService";
+import {DEFAULT_LIMIT} from "../../constants";
 
 
 const Map = ({totalArticles, setSelectedRegion, setArticles, timeConfig, setRequestOffset}) => {
@@ -44,7 +44,9 @@ const Map = ({totalArticles, setSelectedRegion, setArticles, timeConfig, setRequ
         series: [{
                 name: '',
                 showInLegend: false,
-                nullColor: '#83C0F5FF',
+                nullColor: '#F3F4F8',
+                borderColor: '#232360',
+                borderWidth: 2
             },
             {
                 name: '',
@@ -53,6 +55,7 @@ const Map = ({totalArticles, setSelectedRegion, setArticles, timeConfig, setRequ
                     enabled: true,
                     formatter: function () {
                         let numArticles;
+
                         if (!this.point.numArticles) {
                             numArticles = 'No data';
                         } else {
@@ -67,9 +70,9 @@ const Map = ({totalArticles, setSelectedRegion, setArticles, timeConfig, setRequ
                 data: totalArticles,
                 marker: {
                     radius: 10,
-                    fillColor: '#FFFF00',
+                    fillColor: '#5051F9',
                     lineWidth: 2,
-                    lineColor: "#000000"
+                    lineColor: "#232360"
                 },
 
             }

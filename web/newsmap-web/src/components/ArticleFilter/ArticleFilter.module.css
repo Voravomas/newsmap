@@ -1,10 +1,11 @@
 .articleFilter {
     display: flex;
-    justify-content: space-between;
-    flex-flow: row nowrap;
-    width: 800px;
+    flex-direction: row;
+    /*justify-content: space-around;*/
+    /*/*flex-flow: row nowrap;*/
+    /*width: 400px;*/
 }
 
 .fromToText {
-    margin-top: 20px;
+
 }

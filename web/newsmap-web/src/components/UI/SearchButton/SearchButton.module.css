@@ -1,0 +1,11 @@
+.SearchButton {
+    padding: 18px 21px;
+    width: 100px;
+    height: 58px;
+    background: #5051F9;
+    border-radius: 23px;
+    margin-right: 20px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}

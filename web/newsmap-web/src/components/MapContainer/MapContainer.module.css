@@ -1,0 +1,9 @@
+.MapContainer {
+    padding: 10px;
+    border: 3px solid #E3EBEE;
+    border-radius: 23px;
+    margin-left: 20px;
+    background-color: white;
+    /*margin-top: 50px;*/
+    width: 960px;
+}
