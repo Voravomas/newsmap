@@ -61,8 +61,7 @@ const Map = ({totalArticles, setSelectedRegion, setArticles, timeConfig, setRequ
                         } else {
                             numArticles = this.point.numArticles
                         }
-                        return '<span>' + this.point.name +
-                            '</span><br/><span>' + numArticles + '</span>'
+                        return '<span> (' + numArticles + ') ' + this.point.name + '</span>'
                     }
                 },
                 type: 'mappoint',
