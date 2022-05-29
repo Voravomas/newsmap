@@ -11,13 +11,13 @@ def _log_backoff(details: dict) -> None:
           f"Request details: {details['args']} {details['kwargs']}")
 
 
-def json_download(path):
+def json_download(path: str) -> dict:
     with open(path, "r") as f:
         data = load(f)
     return data
 
 
-def text_download(path):
+def text_download(path: str) -> str:
     with open(path, "r") as f:
         data = f.read()
     return data
@@ -25,7 +25,7 @@ def text_download(path):
 
 @on_exception(expo, RetryableRequestError,
               max_tries=MAX_RETRIES, on_backoff=_log_backoff)
-def make_request(link):
+def make_request(link: str) -> str:
     try:
         response = get(link, headers=DEFAULT_HEADERS)
         response.raise_for_status()

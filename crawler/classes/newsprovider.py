@@ -1,6 +1,7 @@
 import logging
 from bs4 import BeautifulSoup
 from time import sleep
+from typing import Tuple, Union
 
 from misc.common import make_request
 from misc.constants import MAX_IDS_PER_NEWS_PROVIDER, TIMEOUT_BETWEEN_LINKS_REQUESTS
@@ -21,7 +22,7 @@ class NewsProvider:
         pass
 
     @classmethod
-    def fetch_new_links(cls, old_ids):
+    def fetch_new_links(cls, old_ids: list) -> Tuple[list, list]:
         logging.info("Fetching new links...")
         links = cls.get_all_links()
         logging.info(f"Got {len(links)} total links")
@@ -32,11 +33,11 @@ class NewsProvider:
         return new_ids_filtered, links_to_download
 
     @classmethod
-    def links_to_ids(cls, links):
+    def links_to_ids(cls, links: list) -> list:
         return [cls.BASE_ARTICLE_CLASS.link_to_id(cls.BASE_ARTICLE_CLASS.NEWS_PROVIDER_NAME, link) for link in links]
 
     @classmethod
-    def get_links_to_download(cls, ids, all_links):
+    def get_links_to_download(cls, ids: list, all_links: list) -> list:
         needed_links = []
         for link in all_links:
             link_id = cls.BASE_ARTICLE_CLASS.link_to_id(cls.BASE_ARTICLE_CLASS.NEWS_PROVIDER_NAME, link)
@@ -45,26 +46,25 @@ class NewsProvider:
         return needed_links
 
     @classmethod
-    def form_last_article_ids(cls, old_ids, new_ids):
+    def form_last_article_ids(cls, old_ids: list, new_ids: list) -> list:
         return (new_ids + old_ids)[:MAX_IDS_PER_NEWS_PROVIDER]
 
     @classmethod
-    def extract_new_ids(cls, new_ids, old_ids):
+    def extract_new_ids(cls, new_ids: list, old_ids: list) -> list:
         for old_id in old_ids:
             if old_id in new_ids:
                 return new_ids[:new_ids.index(old_id)]
         return new_ids
 
     @classmethod
-    def identify_article(cls, link):
+    def identify_article(cls, link: str) -> Union[str, object]:
         for article_link, article_type in cls.LINK_TO_CLASS_MAPPING.items():
             if link.startswith(article_link):
                 return article_type
         return ""
-        # raise Exception(f"Cannot identify type of article by link. Link: {link}")
 
     @classmethod
-    def process(cls, old_ids):
+    def process(cls, old_ids: list) -> Tuple[list, list]:
         new_ids, new_links = cls.fetch_new_links(old_ids)
         processed_articles = []
         updated_ids = cls.form_last_article_ids(old_ids, new_ids)
@@ -106,7 +106,7 @@ class PravdaNewsProvider(NewsProvider):
     }
 
     @classmethod
-    def get_all_links(cls):
+    def get_all_links(cls) -> list:
         links = []
         page = make_request(cls.LINK_TO_ALL_ARTICLES)
         soup = BeautifulSoup(page, 'html.parser')
@@ -135,7 +135,7 @@ class NVNewsProvider(NewsProvider):
     }
 
     @classmethod
-    def get_all_links(cls):
+    def get_all_links(cls) -> list:
         links = []
         page = make_request(cls.LINK_TO_ALL_ARTICLES)
         soup = BeautifulSoup(page, 'html.parser')
@@ -158,7 +158,7 @@ class CensorNetNewsProvider(NewsProvider):
     CLASS_OF_ARTICLE = "news-list-item__link"
 
     @classmethod
-    def get_all_links(cls):
+    def get_all_links(cls) -> list:
         links = []
         page = make_request(cls.LINK_TO_ALL_ARTICLES)
         soup = BeautifulSoup(page, 'html.parser')

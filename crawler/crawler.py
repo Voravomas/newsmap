@@ -1,12 +1,13 @@
 import logging
 from time import sleep
+from typing import Tuple
 
 from classes.newsprovider import NEWS_PROVIDERS_MAPPING
 from classes.database import Database
 from misc.constants import TIMEOUT_SECONDS
 
 
-def crawler(news_data: dict):
+def crawler(news_data: dict) -> Tuple[list, dict]:
     article_data = list()
     id_data = dict()
     for news_provider_name, news_provider_ids in news_data.items():
@@ -20,7 +21,7 @@ def crawler(news_data: dict):
     return article_data, id_data
 
 
-def main():
+def main() -> None:
     logging.basicConfig(format='[%(asctime)s] Message: %(message)s', level=logging.INFO)
     logging.info("The system has started\n")
     while True:
@@ -40,5 +41,4 @@ if __name__ == '__main__':
     main()
 
 
-# TODO: add censor.net
-# TODO: make mongo use valid ids
+# TODO: add -щина to oblasts

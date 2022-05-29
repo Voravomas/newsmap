@@ -1,31 +1,7 @@
-"""
-KW SEARCHER V1:
-
-Rules:
-1. All names of places should be capitalized
-2. Article title is appended to article test
-3. No villages
-Answer:
-1. If name of region then answer
-2. If name from general then answer
-3. If name of rayon then answer
-4. If name of rayon without “ський район” then answer
-5. If name of misto then answer
-
-Keywords structure:
-OBLAST = {
-    "general": [str],
-    "rayon": [str],
-    "misto": [str],
-    "selo": [str],
-}
-"""
-
 from json import load
 from typing import Optional
 
 
-# BASE_RAYON_ENDING = "ький район"
 BASE_RAYON_ENDING = "ький"
 
 RAYON_SUFFICSES = ["iвс", "ївс", "ьсь", "ійс", "вс", "тс", "рс", "ц", "з",
@@ -39,25 +15,25 @@ MINIMUM_CROPPED_RAYON_WORD = 4
 KEYWORDS_LOCATION = "../misc/result2.json"
 
 
-def download(path):
+def download(path: str) -> str:
     with open(path, "r") as f:
         data = load(f)
     return data
 
 
-def init_final(keys):
+def init_final(keys: list) -> dict:
     fin_dict = dict()
     for obl in keys:
         fin_dict[obl] = {"num": 0, "exactly": []}
     return fin_dict
 
 
-def inc(obl_name, value, fin_dict):
+def inc(obl_name: str, value: str, fin_dict: dict) -> None:
     fin_dict[obl_name]["num"] += 1
     fin_dict[obl_name]["exactly"].append(value)
 
 
-def clear_emtpy(input_dict: dict):
+def clear_emtpy(input_dict: dict) -> dict:
     new_dict = dict()
     for k, w in input_dict.items():
         if w["num"] > 0:
@@ -65,9 +41,9 @@ def clear_emtpy(input_dict: dict):
     return new_dict
 
 
-def crop_rayon(rayon_name: str):
-    for suffics in RAYON_SUFFICSES:
-        cur_ending = suffics + BASE_RAYON_ENDING
+def crop_rayon(rayon_name: str) -> str:
+    for suffices in RAYON_SUFFICSES:
+        cur_ending = suffices + BASE_RAYON_ENDING
         if rayon_name.endswith(cur_ending):
             rayon_cropped = rayon_name.split(cur_ending)[0]
             if len(rayon_cropped) >= MINIMUM_CROPPED_RAYON_WORD:
@@ -75,7 +51,7 @@ def crop_rayon(rayon_name: str):
     return rayon_name
 
 
-def leave_only_capitalized(text: str):
+def leave_only_capitalized(text: str) -> str:
     filtered_text = []
     text = text.split()
     for word in text:
@@ -101,22 +77,22 @@ def leave_only_capitalized(text: str):
     return " ".join(filtered_text)
 
 
-def kwsearcher(title: str, body: str, keywords: Optional[dict] = download(KEYWORDS_LOCATION)):
+def kwsearcher(title: str, body: str, keywords: Optional[dict] = download(KEYWORDS_LOCATION)) -> dict:
     answer = init_final(list(keywords.keys()))
-    all_text = title + "\n" + body  # R2
-    all_text = leave_only_capitalized(all_text)  # R3
+    all_text = title + "\n" + body
+    all_text = leave_only_capitalized(all_text)
     for oblast in keywords.keys():
-        if oblast in all_text:  # A1
+        if oblast in all_text:
             inc(oblast, oblast, answer)
         for general_name in keywords[oblast]["general"]:
-            if general_name in all_text:  # A2
+            if general_name in all_text:
                 inc(oblast, general_name, answer)
         for rayon_name in keywords[oblast]["rayon"]:
-            if rayon_name in all_text:  # A3
+            if rayon_name in all_text:
                 inc(oblast, rayon_name, answer)
-            if crop_rayon(rayon_name) in all_text:  # A4
+            if crop_rayon(rayon_name) in all_text:
                 inc(oblast, rayon_name, answer)
         for misto_name in keywords[oblast]["misto"]:
-            if misto_name in all_text:  # A5
+            if misto_name in all_text:
                 inc(oblast, misto_name, answer)
     return clear_emtpy(answer)

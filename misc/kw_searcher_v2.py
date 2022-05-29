@@ -7,7 +7,7 @@ WORD_CASES = json_download("../misc/word_data/words_cases_to_main.json")
 WORD_INFO = json_download("../misc/word_data/word_info.json")
 
 
-def leave_only_capitalized(text: str):
+def leave_only_capitalized(text: str) -> list:
     filtered_text = []
     text = text.split()
     for word in text:
@@ -33,7 +33,7 @@ def leave_only_capitalized(text: str):
     return filtered_text
 
 
-def lower_at_start(text):
+def lower_at_start(text: str) -> str:
     separators = ["\n", ".", "\""]
     lower_next = True
     fin_text = ""
@@ -48,7 +48,7 @@ def lower_at_start(text):
     return fin_text
 
 
-def add_double_word_cases(word_list):
+def add_double_word_cases(word_list: list) -> list:
     doubled_words = []
     if len(word_list) < 2:
         return word_list
@@ -57,7 +57,7 @@ def add_double_word_cases(word_list):
     return word_list + doubled_words
 
 
-def kwsearcher(title_and_body):
+def kwsearcher(title_and_body: str) -> list:
     fin_list = []
     words_with_capital_letters = leave_only_capitalized(lower_at_start(title_and_body))
     words_with_capital_letters = [word.lower() for word in words_with_capital_letters]
