@@ -1,9 +1,17 @@
 .MapContainer {
-    padding: 10px;
+    display: flex;
+    justify-content: center;
     border: 3px solid #E3EBEE;
     border-radius: 23px;
-    margin-left: 20px;
     background-color: white;
-    /*margin-top: 50px;*/
-    width: 960px;
+    height: 85%;
+    width: 80%;
+}
+
+.Map {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+    height: 100%;
 }

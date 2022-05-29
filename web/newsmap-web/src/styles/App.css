@@ -12,6 +12,8 @@
 .App {
     display: flex;
     flex-direction: row;
+    width: 100%;
+    height: 100%;
 }
 
 #container {
@@ -31,18 +33,26 @@
     justify-content: space-between;
 }
 
+.MapWrapper {
+    display: flex;
+    justify-content: center;
+    height: 80%;
+}
+
 .MainPanel {
     background-color: #F3F4F8;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 760px;
+    width: 70%;
+    height: 90vh;
 }
 
 .SidePanel {
     display: flex;
     flex-direction: column;
-    width: 440px;
+    width: 30%;
+    height: 100vh;
     background-color: #FBFAFF;
 }
 

@@ -1,6 +1,6 @@
 .TopPanel {
-    height: 90px;
-    width: 1000px;
+    height: 15%;
+    width: 100%;
     background-color: white;
     padding-top: 20px;
     display: flex;

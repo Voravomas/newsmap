@@ -28,14 +28,14 @@ function App() {
                     setSelectedRegion={setSelectedRegion}
                     setTotalArticles={setTotalArticles}
                 />
+                <div className={"MapWrapper"}>
                 <MapContainer
                     totalArticles={totalArticles}
                     setSelectedRegion={setSelectedRegion}
                     setArticles={setArticles}
                     timeConfig={timeConfig}
                     setRequestOffset={setRequestOffset}
-                />
-                <div className="EmptyPanel"></div>
+                /></div>
             </div>
             <div className="SidePanel">
                 <RegionNameWithButtons
@@ -46,11 +46,11 @@ function App() {
                     timeConfig={timeConfig}
                     totalArticlesInRegion={selectedRegion ? totalArticles[selectedRegion - 1].numArticles : null}
                 />
-                <div className="Articles">
+                <div className={"Articles"}>
                     {articles.length === 0
                         ? <NoArticlesText/>
                         : articles.map((article, index) =>
-                            <div style={{display: "flex", justifyContent: "center"}}><Article key={article.article_id} number={index + 1} article={article}/></div>
+                            <div style={{display: "flex", justifyContent: "center", }}><Article key={article.article_id} number={index + 1} article={article}/></div>
                         )
                     }
                 </div>

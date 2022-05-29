@@ -1,24 +1,23 @@
 .article {
     color: #768396;
     background-color: white;
-    font-size: 0.9em;
+    font-size: 90%;
     padding: 15px;
     border: 3px solid #E3EBEE;
     border-radius: 10px;
     margin-top: 15px;
-    /*align-items: center;*/
-    width: 400px;
+    width: 90%;
 }
 
 .articleTop {
     display: flex;
-    font-size: 0.9em;
+    font-size: 85%;
     justify-content: space-between;
 }
 
 .articleHeading {
     color: #232360;
-    font-size: 1.1em;
+    font-size: 115%;
     font-weight: bold;
     margin: 7px 0;
 }

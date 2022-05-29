@@ -1,11 +1,6 @@
 .articleFilter {
     display: flex;
     flex-direction: row;
-    /*justify-content: space-around;*/
-    /*/*flex-flow: row nowrap;*/
-    /*width: 400px;*/
-}
-
-.fromToText {
-
+    width: 70%;
+    justify-content: space-between;
 }
