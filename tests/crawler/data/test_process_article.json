@@ -1,0 +1,221 @@
+{
+  "Pravda": {
+    "link": "https://www.pravda.com.ua/news/2022/05/30/7349358/",
+    "expected_output": {
+    "article_id": "pravda_7349358",
+    "title": "Ворог перегруповується і готує наступи на Слов’янськ з Ізюму і Лиману – зведення",
+    "news_provider_name": "Pravda",
+    "article_type": "Pravda",
+    "link": "https://www.pravda.com.ua/news/2022/05/30/7349358/",
+    "time_published": "2022-05-30 07:04:00",
+    "published_timestamp": 1653883440,
+    "time_collected": "2022-05-30 09:21:08.403133",
+    "text_language": "UA",
+    "tags": ["Збройні сили", "війна"],
+    "regions": {
+      "18": {"confidence": 1, "places": ["Барвінкове", "Василівка", "Запсілля", "Кіндратівка", "Миколаївське", "Миропілля", "Перемога", "Питомник", "Сумська"]},
+      "14": {"confidence": 1, "places": ["Василівка", "Лиманське", "Миколаївське", "Миколаївський", "Новопавлівське", "Перемога"]},
+      "5": {"confidence": 1, "places": ["Бахмутське", "Бахмутський", "Василівка", "Донецьке", "Запорізьке", "Комишуваха", "Кіндратівка", "Лиман", "Перемога", "Харківське"]},
+      "20": {"confidence": 1, "places": ["Ізюм", "Барвінкове", "Борщова", "Василівка", "Донецьке", "Запорізьке", "Лиман", "Лозова", "Миропілля", "Перемога", "Питомник", "Руська Лозова", "Руські Тишки", "Харків", "Харківський", "Черкаські Тишки"]},
+      "12": {"confidence": 1, "places": ["Донецький", "Запорізьке", "Комишуваха", "Лиман", "Лисичанськ", "Олександропілля"]},
+      "8": {"confidence": 1, "places": ["Василівка", "Запорізьке", "Запорізький", "Комишуваха", "Лиманське", "Мелітополь", "Перемога"]},
+      "1": {"confidence": 1, "places": ["Крим"]},
+      "4": {"confidence": 1, "places": ["Василівка", "Запорізьке", "Криворізьке", "Криворізький", "Кіндратівка", "Лиманське", "Перемога"]},
+      "11": {"confidence": 0.5, "places": ["Борщова", "Василівка", "Кіндратівка", "Перемога"]},
+      "2": {"confidence": 0.5, "places": ["Василівка", "Лозова", "Перемога"]},
+      "19": {"confidence": 0.5, "places": ["Лозова"]},
+      "22": {"confidence": 0.5, "places": ["Василівка", "Лозова"]},
+      "25": {"confidence": 0.5, "places": ["Барвінкове", "Запорізьке", "Лозова", "Перемога"]},
+      "6": {"confidence": 0.5, "places": ["Барвінкове", "Василівка", "Перемога"]},
+      "10": {"confidence": 0.5, "places": ["Василівка", "Перемога"]},
+      "15": {"confidence": 1, "places": ["Василівка", "Лиман", "Лиманське", "Лиманський", "Миколаївський", "Перемога"]},
+      "16": {"confidence": 0.5, "places": ["Василівка", "Запсілля", "Тишки"]},
+      "21": {"confidence": 0.5, "places": ["Василівка", "Запорізьке", "Лиманське", "Перемога", "Питомник"]},
+      "24": {"confidence": 0.5, "places": ["Василівка", "Руська"]},
+      "23": {"confidence": 0.5, "places": ["Миропілля"]},
+      "9": {"confidence": 0.5, "places": ["Барвінків"]},
+      "13": {"confidence": 1, "places": ["Миколаївський"]}}}
+    },
+  "economyPravda": {
+    "link": "https://www.epravda.com.ua/news/2022/05/23/687345/",
+    "expected_output": {
+   "article_id": "pravda_687345",
+   "title": "Попит на вторинну нерухомість у Києві обвалився на 50%",
+   "news_provider_name": "Pravda",
+   "article_type": "economyPravda",
+   "link": "https://www.epravda.com.ua/news/2022/05/23/687345/",
+   "time_published": "2022-05-23 14:30:00",
+   "published_timestamp": 1653305400,
+   "time_collected": "2022-05-30 10:04:35.329445",
+   "text_language": "UA",
+   "tags": ["нерухомість", "будівництво", "житло", "війна"],
+   "regions": {
+     "18": {"confidence": 1, "places": ["Сумська", "Харківщина"]},
+     "11": {"confidence": 1, "places": ["Кіровоградська"]},
+     "14": {"confidence": 1, "places": ["Київ", "Миколаївська"]},
+     "13": {"confidence": 1, "places": ["Львівська"]},
+     "10": {"confidence": 1, "places": ["Київ", "Київська"]},
+     "20": {"confidence": 1, "places": ["Харківська"]},
+     "8": {"confidence": 1, "places": ["Запорізька"]},
+     "9": {"confidence": 1, "places": ["Івано-Франківська"]},
+     "15": {"confidence": 1, "places": ["Одеська"]},
+     "4": {"confidence": 1, "places": ["Дніпропетровська"]},
+     "7": {"confidence": 1, "places": ["Закарпатська"]},
+     "6": {"confidence": 1, "places": ["Житомирська"]}}
+    }
+  },
+  "euroPravda": {
+    "link": "https://www.eurointegration.com.ua/news/2022/05/29/7140239/",
+    "expected_output": {
+   "article_id": "pravda_7140239",
+   "title": "Польща передала Україні 18 самохідних гаубиць KRAB - ЗМІ",
+   "news_provider_name": "Pravda",
+   "article_type": "euroPravda",
+   "link": "https://www.eurointegration.com.ua/news/2022/05/29/7140239/",
+   "time_published": "2022-05-29 18:36:00",
+   "published_timestamp": 1653838560,
+   "time_collected": "2022-05-30 10:09:41.051965",
+   "text_language": "UA",
+   "tags": ["Війна з РФ", "Польща"],
+   "regions": {}
+  }
+  },
+  "lifePravda": {
+    "link": "https://life.pravda.com.ua/society/2022/05/29/248861/",
+    "expected_output": {
+   "article_id": "pravda_248861",
+   "title": "\"Дорогий Києве, будь!\": як українці вітають столицю України з 1540-річчям",
+   "news_provider_name": "Pravda",
+   "article_type": "lifePravda",
+   "link": "https://life.pravda.com.ua/society/2022/05/29/248861/",
+   "time_published": "2022-05-29 00:00:00",
+   "published_timestamp": 1653771600,
+   "time_collected": "2022-05-30 10:11:39.191739",
+   "text_language": "UA",
+   "tags": [],
+   "regions": {
+      "10": {"confidence": 1, "places": ["Київ", "Київська"]},
+      "14": {"confidence": 0.5, "places": ["Київ"]},
+      "15": {"confidence": 0.5, "places": ["Кузьменка"]}}
+  }
+  },
+  "NV": {
+    "link": "https://nv.ua/ukr/ukraine/events/boji-ydut-vzhe-na-vulicyah-syeverodonecka-novini-ukrajini-50246182.html",
+    "expected_output": {
+   "article_id": "nv_50246182",
+   "title": "У Сєвєродонецьку бої точаться вже на вулицях, окупанти просуваються всередину міста — голова Луганської ОВА ",
+   "news_provider_name": "NV",
+   "article_type": "NV",
+   "link": "https://nv.ua/ukr/ukraine/events/boji-ydut-vzhe-na-vulicyah-syeverodonecka-novini-ukrajini-50246182.html",
+   "time_published": "2022-05-30 10:15:00",
+   "published_timestamp": 1653894900,
+   "time_collected": "2022-05-30 10:17:54.081759",
+   "text_language": "UA",
+   "tags": ["Луганська область", "Сєвєродонецьк", "Сергій Гайдай", "Війна Росії проти України"],
+   "regions": {
+    "12": {"confidence": 1, "places": ["Лисичанськ", "Луганська", "Луганська область", "Сєвєродонецьк"]}
+   }
+}
+  },
+  "NVLife": {
+    "link": "https://life.nv.ua/ukr/znamenitosti/dzidzio-pidstavili-tak-samo-yak-i-pavla-zibrova-spivak-potrapiv-u-skandal-cherez-mazhorne-vesillya-50245964.html",
+    "expected_output": {
+   "article_id": "nv_50245964",
+   "title": "«Підставив мене». DZIDZIO довелося виправдовуватися через виступ свого «двійника» на мажорному весіллі ",
+   "news_provider_name": "NV",
+   "article_type": "NVLife",
+   "link": "https://life.nv.ua/ukr/znamenitosti/dzidzio-pidstavili-tak-samo-yak-i-pavla-zibrova-spivak-potrapiv-u-skandal-cherez-mazhorne-vesillya-50245964.html",
+   "time_published": "2022-05-28 20:52:00",
+   "published_timestamp": 1653760320,
+   "time_collected": "2022-05-30 11:20:29.603973",
+   "text_language": "UA",
+   "tags": ["Dzidzio"],
+   "regions": {"3": {"confidence": 1, "places": ["Луцьк"]}}
+}
+  },
+  "NVBiz": {
+    "link": "https://biz.nv.ua/ukr/markets/oblgazi-firtasha-ocinili-zbitki-cherez-viynu-mayzhe-v-10-mlrd-griven-novini-ukrajini-50245704.html",
+    "expected_output": {
+   "article_id": "nv_50245704",
+   "title": "Збитки Фірташа. В РГК підрахували втрати облгазів через російську агресію та бойові дії ",
+   "news_provider_name": "NV",
+   "article_type": "NVBiz",
+   "link": "https://biz.nv.ua/ukr/markets/oblgazi-firtasha-ocinili-zbitki-cherez-viynu-mayzhe-v-10-mlrd-griven-novini-ukrajini-50245704.html",
+   "time_published": "2022-05-27 18:28:00",
+   "published_timestamp": 1653665280,
+   "time_collected": "2022-05-30 10:37:47.133586",
+   "text_language": "UA",
+   "tags": ["Дмитро Фірташ", "Газорозподільна станція", "Облгаз", "РГК", "Війна Росії проти України"],
+   "regions": {
+      "10": {"confidence": 1, "places": ["Київ"]},
+      "14": {"confidence": 0.5, "places": ["Київ"]}}
+}
+  },
+  "NVTechno": {
+    "link": "https://techno.nv.ua/ukr/it-industry/smartfoni-i-diti-50245428.html",
+    "expected_output": {
+   "article_id": "nv_50245428",
+   "title": "Росіяни викорисутовують мобільні ігри для вербування дітей в Україні: як це працює та як захиститися від російських хакерів ",
+   "news_provider_name": "NV",
+   "article_type": "NVTechno",
+   "link": "https://techno.nv.ua/ukr/it-industry/smartfoni-i-diti-50245428.html",
+   "time_published": "2022-05-26 20:03:00",
+   "published_timestamp": 1653584580,
+   "time_collected": "2022-05-30 10:41:23.679555",
+   "text_language": "UA",
+   "tags": ["Служба безпеки України (СБУ)", "Кібербезпека", "Війна в Україні", "Російські хакери", "Діти", "Підлітки", "Війна Росії проти України", "Застосунок"],
+   "regions": {}
+}
+  },
+  "NVHealth": {
+    "link": "https://health.nv.ua/ukr/nutrition/pravila-harchuvannya-ta-dovgozhitelstvo-50216141.html",
+    "expected_output": {
+   "article_id": "nv_50216141",
+   "title": "Шість правил харчування, які продовжать вам життя на 10 років. Або навіть більше, якщо ви сильно постараєтеся ",
+   "news_provider_name": "NV",
+   "article_type": "NVHealth",
+   "link": "https://health.nv.ua/ukr/nutrition/pravila-harchuvannya-ta-dovgozhitelstvo-50216141.html",
+   "time_published": "2022-02-13 06:00:00",
+   "published_timestamp": 1644724800,
+   "time_collected": "2022-05-30 10:43:44.081195",
+   "text_language": "UA",
+   "tags": ["Довголіття", "Довгожителі"],
+   "regions": {}
+}
+  },
+  "CensorNet": {
+    "link": "https://censor.net/ua/news/3344682/viyiska_rf_uviyishly_na_okolytsi_syeverodonetska_tochatsya_vajki_boyi_za_syeverodonetsk_ta_lysychansk",
+    "expected_output": {
+    "article_id": "censornet_3344682",
+    "title": "Війська РФ увійшли на околиці Сєверодонецька, точаться важкі бої за Сєверодонецьк та Лисичанськ, - Гайдай. ФОТО",
+    "news_provider_name": "CensorNet",
+    "article_type": "CensorNet",
+    "link": "https://censor.net/ua/news/3344682/viyiska_rf_uviyishly_na_okolytsi_syeverodonetska_tochatsya_vajki_boyi_za_syeverodonetsk_ta_lysychansk",
+    "time_published": "2022-05-30 08:12:00",
+    "published_timestamp": 1653887520,
+    "time_collected": "2022-05-30 10:01:30.271811",
+    "text_language": "UA",
+    "tags": ["армія РФ", "війна", "Лисичанськ", "Луганщина", "обстріл", "Сєверодонецьк", "Гайдай_ЛОГА"],
+    "regions": {
+      "12": {"confidence": 1, "places": ["Врубівка", "Вікторівка", "Золоте", "Лисичанськ", "Луганська", "Миколаївка", "Ниркове", "Сиротине"]},
+      "2": {"confidence": 0.5, "places": ["Миколаївка"]},
+      "4": {"confidence": 0.5, "places": ["Миколаївка"]},
+      "5": {"confidence": 1, "places": ["Вікторівка", "Миколаївка"]},
+      "6": {"confidence": 0.5, "places": ["Вікторівка", "Миколаївка"]},
+      "8": {"confidence": 0.5, "places": ["Вікторівка", "Миколаївка"]},
+      "10": {"confidence": 0.5, "places": ["Вікторівка", "Миколаївка"]},
+      "11": {"confidence": 0.5, "places": ["Миколаївка"]},
+      "14": {"confidence": 0.5, "places": ["Вікторівка", "Миколаївка"]},
+      "15": {"confidence": 0.5, "places": ["Вікторівка", "Миколаївка"]},
+      "16": {"confidence": 0.5, "places": ["Миколаївка"]},
+      "17": {"confidence": 0.5, "places": ["Золоте", "Миколаївка"]},
+      "18": {"confidence": 0.5, "places": ["Миколаївка"]},
+      "19": {"confidence": 0.5, "places": ["Вікторівка", "Миколаївка"]},
+      "20": {"confidence": 0.5, "places": ["Вікторівка", "Миколаївка"]},
+      "21": {"confidence": 0.5, "places": ["Вікторівка", "Миколаївка"]},
+      "22": {"confidence": 0.5, "places": ["Вікторівка", "Миколаївка"]},
+      "23": {"confidence": 0.5, "places": ["Вікторівка", "Миколаївка"]},
+      "25": {"confidence": 0.5, "places": ["Вікторівка", "Миколаївка"]}}
+    }
+}
+}
