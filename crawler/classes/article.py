@@ -1,11 +1,11 @@
 from bs4 import BeautifulSoup
 from datetime import datetime
-from typing import Tuple
+from typing import Tuple, Optional
 
 from misc.kw_searcher_v2 import kwsearcher
 from misc.analyser import analyser
 from misc.common import make_request
-from misc.constants import MONTH_DICT
+from misc.constants import MONTH_DICT, CENSOR_NET_HEADERS
 
 
 class Article:
@@ -39,8 +39,8 @@ class Article:
         return f"{news_provider_name}_{link_id}"
 
     @classmethod
-    def get_beautiful_page(cls, link: str) -> BeautifulSoup:
-        page_raw = make_request(link)
+    def get_beautiful_page(cls, link: str, headers: Optional[dict] = None) -> BeautifulSoup:
+        page_raw = make_request(link, headers)
         return BeautifulSoup(page_raw, 'html.parser')
 
     @classmethod
@@ -145,6 +145,7 @@ class PravdaArticle(PravdaTypeArticle):
     # Субота, 16 квітня 2022, 14:19
     TITLE_BLOCK_NAME = "post_title"
     TEXT_BODY_BLOCK_NAME = "post_text"
+    TAGS_BLOCK_NAME = "post_tags"
 
     @classmethod
     def extract_tags(cls, beautiful_page: BeautifulSoup) -> list:
@@ -289,6 +290,10 @@ class CensorNetArticle(Article):
     TEXT_BODY_BLOCK_NAME = "news-text"
     BODY_TAGS = ["p"]
     TAGS_BLOCK_NAME = "news-tags"
+
+    @classmethod
+    def get_beautiful_page(cls, link: str, headers: Optional[dict] = None) -> BeautifulSoup:
+        return super().get_beautiful_page(link, CENSOR_NET_HEADERS)
 
     @classmethod
     def convert_date(cls, date_raw: str) -> datetime:

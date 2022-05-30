@@ -1,9 +1,11 @@
 from requests import get, RequestException
 from backoff import on_exception, expo
 from json import load
+from os.path import dirname
+from typing import Optional
 
 from .exceptions import RetryableRequestError, NonRetryableRequestError
-from .constants import MAX_RETRIES, DEFAULT_HEADERS
+from .constants import MAX_RETRIES
 
 
 def _log_backoff(details: dict) -> None:
@@ -25,9 +27,12 @@ def text_download(path: str) -> str:
 
 @on_exception(expo, RetryableRequestError,
               max_tries=MAX_RETRIES, on_backoff=_log_backoff)
-def make_request(link: str) -> str:
+def make_request(link: str, headers: Optional[dict] = None) -> str:
     try:
-        response = get(link, headers=DEFAULT_HEADERS)
+        if headers:
+            response = get(link, headers=headers)
+        else:
+            response = get(link)
         response.raise_for_status()
     except RequestException as err:
         print(f"Got {response.status_code} error: {err}, response: {response}")
@@ -36,3 +41,9 @@ def make_request(link: str) -> str:
         else:
             raise NonRetryableRequestError()
     return response.text
+
+
+def get_path_to_project():
+    cur_dir_path = dirname(__file__)
+    str_end = cur_dir_path.rfind("newsmap") + len("newsmap")
+    return cur_dir_path[:str_end]

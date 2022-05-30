@@ -51,4 +51,4 @@ MONTH_DICT = {
         "жовтня": 10, "листопада": 11, "грудня": 12
     }
 
-DEFAULT_HEADERS = {"User-Agent": ""}
+CENSOR_NET_HEADERS = {"User-Agent": ""}
