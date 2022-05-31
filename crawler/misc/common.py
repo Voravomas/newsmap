@@ -28,6 +28,7 @@ def text_download(path: str) -> str:
 @on_exception(expo, RetryableRequestError,
               max_tries=MAX_RETRIES, on_backoff=_log_backoff)
 def make_request(link: str, headers: Optional[dict] = None) -> str:
+    response = None
     try:
         if headers:
             response = get(link, headers=headers)
@@ -35,7 +36,10 @@ def make_request(link: str, headers: Optional[dict] = None) -> str:
             response = get(link)
         response.raise_for_status()
     except RequestException as err:
-        print(f"Got {response.status_code} error: {err}, response: {response}")
+        response_error = "Unknown code"
+        if response:
+            response_error = response.status_code
+        print(f"Got {response_error} error: {err}, response: {response}")
         if response.status_code > 500:
             raise RetryableRequestError()
         else:

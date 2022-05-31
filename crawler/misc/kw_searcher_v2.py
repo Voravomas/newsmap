@@ -2,9 +2,9 @@ from .common import json_download, get_path_to_project
 
 SYMBOLS = [".", ",", "!", "?", ":", "-", "–", "*", "/", "\\"]
 PATH_TO_PROJECT = get_path_to_project()
-ALL_WORDS = set(json_download(PATH_TO_PROJECT + "/misc/word_data/all_words.json")["words"])
-WORD_CASES = json_download(PATH_TO_PROJECT + "/misc/word_data/words_cases_to_main.json")
-WORD_INFO = json_download(PATH_TO_PROJECT + "/misc/word_data/word_info.json")
+ALL_WORDS = set(json_download(PATH_TO_PROJECT + "/crawler/misc/word_data/all_words.json")["words"])
+WORD_CASES = json_download(PATH_TO_PROJECT + "/crawler/misc/word_data/words_cases_to_main.json")
+WORD_INFO = json_download(PATH_TO_PROJECT + "/crawler/misc/word_data/word_info.json")
 
 
 def leave_only_capitalized(text: str) -> list:
