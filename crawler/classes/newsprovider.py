@@ -65,7 +65,12 @@ class NewsProvider:
 
     @classmethod
     def process(cls, old_ids: list) -> Tuple[list, list]:
-        new_ids, new_links = cls.fetch_new_links(old_ids)
+        try:
+            new_ids, new_links = cls.fetch_new_links(old_ids)
+        except Exception as err:
+            logging.info(f"Skipping {cls.BASE_ARTICLE_CLASS.ARTICLE_TYPE} newsprovider"
+                         f" because of error while requesting all links: {err}")
+            return old_ids, []
         processed_articles = []
         updated_ids = cls.form_last_article_ids(old_ids, new_ids)
 
