@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from time import sleep
 from typing import Tuple, Union
 
-from misc.common import make_request
+from misc.common import make_request, gen_random_str
 from misc.constants import MAX_IDS_PER_NEWS_PROVIDER, TIMEOUT_BETWEEN_LINKS_REQUESTS, CENSOR_NET_HEADERS
 from misc.exceptions import PageProcessError
 from .article import (Article, PravdaArticle, EconomyPravdaArticle,
@@ -167,7 +167,8 @@ class CensorNetNewsProvider(NewsProvider):
     @classmethod
     def get_all_links(cls) -> list:
         links = []
-        page = make_request(cls.LINK_TO_ALL_ARTICLES, CENSOR_NET_HEADERS)
+        headers = {"User-Agent": gen_random_str(10)}
+        page = make_request(cls.LINK_TO_ALL_ARTICLES, headers)
         soup = BeautifulSoup(page, 'html.parser')
         all_articles = soup.find_all("div", {"class": cls.CLASS_OF_ALL_ARTICLES})
         all_links = all_articles[0].findChildren("a", recursive=True)

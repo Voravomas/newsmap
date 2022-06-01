@@ -4,7 +4,7 @@ from typing import Tuple, Optional
 
 from misc.kw_searcher_v2 import kwsearcher
 from misc.analyser import analyser
-from misc.common import make_request
+from misc.common import make_request, gen_random_str
 from misc.constants import MONTH_DICT, CENSOR_NET_HEADERS
 
 
@@ -293,7 +293,8 @@ class CensorNetArticle(Article):
 
     @classmethod
     def get_beautiful_page(cls, link: str, headers: Optional[dict] = None) -> BeautifulSoup:
-        return super().get_beautiful_page(link, CENSOR_NET_HEADERS)
+        headers = {"User-Agent": gen_random_str(10)}
+        return super().get_beautiful_page(link, headers)
 
     @classmethod
     def convert_date(cls, date_raw: str) -> datetime:

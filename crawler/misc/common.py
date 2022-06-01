@@ -3,9 +3,15 @@ from backoff import on_exception, expo
 from json import load
 from os.path import dirname
 from typing import Optional
+from random import choice
+from string import ascii_lowercase
 
 from .exceptions import RetryableRequestError, NonRetryableRequestError
 from .constants import MAX_RETRIES
+
+
+def gen_random_str(length):
+    return ''.join((choice(ascii_lowercase) for x in range(length)))
 
 
 def _log_backoff(details: dict) -> None:
