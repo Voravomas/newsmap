@@ -2,8 +2,16 @@ import logging
 from pymongo import MongoClient
 from pymongo.collection import Collection
 from typing import List
-from CREDENTIALS import CONNECTION_STRING, DB_NAME,\
-    NEWS_PROVIDER_COLLECTION_NAME, ARTICLE_COLLECTION_NAME
+from os import getenv
+
+CONNECTION_STRING = getenv("CONNECTION_STRING")
+DB_NAME = getenv("DB_NAME")
+NEWS_PROVIDER_COLLECTION_NAME = getenv("NEWS_PROVIDER_COLLECTION_NAME")
+ARTICLE_COLLECTION_NAME = getenv("ARTICLE_COLLECTION_NAME")
+
+if not DB_NAME or not CONNECTION_STRING\
+        or not NEWS_PROVIDER_COLLECTION_NAME or not ARTICLE_COLLECTION_NAME:
+    raise Exception("ENV variables are not set")
 
 
 class Database:
