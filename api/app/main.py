@@ -4,17 +4,30 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from asyncio import get_event_loop
 from typing import List, Dict
+from os import getenv
 
-from CREDENTIALS import CONNECTION_STRING, DB_NAME
 from .models import ArticleModel, RegionRequest
 from .utils import (validate_time, get_articles_in_region,
-                   get_number_of_news_in_region, validate_limit, validate_offset)
+                    get_number_of_news_in_region, validate_limit,
+                    validate_offset)
+
+CONNECTION_STRING = getenv("CONNECTION_STRING")
+DB_NAME = getenv("DB_NAME")
+API_HOST = getenv("API_HOST")
+API_PORT = getenv("API_PORT")
+ARTICLE_COLLECTION_NAME = getenv("ARTICLE_COLLECTION_NAME")
+
+if not DB_NAME or not CONNECTION_STRING\
+        or not API_HOST or not API_PORT or not ARTICLE_COLLECTION_NAME:
+    raise Exception("ENV variables are not set")
+
 
 origins = [
     "http://localhost.tiangolo.com",
     "https://localhost.tiangolo.com",
     "http://localhost",
     "http://localhost:3000",
+    "http://localhost:8000",
 ]
 
 app = FastAPI()
@@ -44,7 +57,7 @@ async def read_root():
 )
 async def get_total_articles(from_time: int, to_time: int):
     validate_time(from_time, to_time)
-    fin_dict = await get_number_of_news_in_region(db["articles"], from_time, to_time)
+    fin_dict = await get_number_of_news_in_region(db[ARTICLE_COLLECTION_NAME], from_time, to_time)
     return {"response": fin_dict}
 
 
@@ -58,7 +71,7 @@ async def get_articles_by_region(request_data: RegionRequest):
     validate_limit(request_data.limit)
     validate_offset(request_data.offset)
 
-    data = await get_articles_in_region(db["articles"],
+    data = await get_articles_in_region(db[ARTICLE_COLLECTION_NAME],
                                         request_data.from_time,
                                         request_data.to_time,
                                         request_data.region,
@@ -67,4 +80,4 @@ async def get_articles_by_region(request_data: RegionRequest):
     return {"response": data}
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host=API_HOST, port=API_PORT)

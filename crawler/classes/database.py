@@ -2,11 +2,16 @@ import logging
 from pymongo import MongoClient
 from pymongo.collection import Collection
 from typing import List
+from os import getenv
 
-from CREDENTIALS import CONNECTION_STRING, DB_NAME
+CONNECTION_STRING = getenv("CONNECTION_STRING")
+DB_NAME = getenv("DB_NAME")
+NEWS_PROVIDER_COLLECTION_NAME = getenv("NEWS_PROVIDER_COLLECTION_NAME")
+ARTICLE_COLLECTION_NAME = getenv("ARTICLE_COLLECTION_NAME")
 
-NEWS_PROVIDER_COLLECTION_NAME = "newsproviders"
-ARTICLE_COLLECTION_NAME = "articles"
+if not DB_NAME or not CONNECTION_STRING\
+        or not NEWS_PROVIDER_COLLECTION_NAME or not ARTICLE_COLLECTION_NAME:
+    raise Exception("ENV variables are not set")
 
 
 class Database:
@@ -29,7 +34,8 @@ class Database:
         collection_name = ARTICLE_COLLECTION_NAME
         collection = cls.get_collection(client, collection_name)
         logging.info(f"Loading {len(documents)} documents to collection \"{collection_name}\"...")
-        collection.insert_many(documents)
+        if documents:
+            collection.insert_many(documents)
         logging.info("Success")
 
     @classmethod
