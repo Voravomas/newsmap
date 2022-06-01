@@ -4,22 +4,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from asyncio import get_event_loop
 from typing import List, Dict
-from os import getenv
 
-from .models import ArticleModel, RegionRequest
-from .utils import (validate_time, get_articles_in_region,
-                    get_number_of_news_in_region, validate_limit,
-                    validate_offset)
-
-CONNECTION_STRING = getenv("CONNECTION_STRING")
-DB_NAME = getenv("DB_NAME")
-API_HOST = getenv("API_HOST")
-API_PORT = getenv("API_PORT")
-ARTICLE_COLLECTION_NAME = getenv("ARTICLE_COLLECTION_NAME")
-
-if not DB_NAME or not CONNECTION_STRING\
-        or not API_HOST or not API_PORT or not ARTICLE_COLLECTION_NAME:
-    raise Exception("ENV variables are not set")
+from models import ArticleModel, RegionRequest
+from utils import (validate_time, get_articles_in_region,
+                   get_number_of_news_in_region, validate_limit,
+                   validate_offset)
+from CREDENTIALS import CONNECTION_STRING, DB_NAME, API_HOST, \
+                        API_PORT, ARTICLE_COLLECTION_NAME
 
 
 origins = [
