@@ -12,20 +12,11 @@ from utils import (validate_time, get_articles_in_region,
 from CREDENTIALS import CONNECTION_STRING, DB_NAME, API_HOST, \
                         API_PORT, ARTICLE_COLLECTION_NAME
 
-
-origins = [
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
-    "http://localhost",
-    "http://localhost:3000",
-    "http://localhost:8000",
-]
-
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=['*'],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
