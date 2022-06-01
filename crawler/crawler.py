@@ -21,6 +21,15 @@ def crawler(news_data: dict) -> Tuple[list, dict]:
     return article_data, id_data
 
 
+def sleep_but_awake(max_sleep):
+    slept = 0
+    sleep_step = 5
+    while slept < max_sleep:
+        sleep(sleep_step)
+        slept += sleep_step
+        logging.info(f"{slept}/{max_sleep}")
+
+
 def main() -> None:
     logging.basicConfig(format='[%(asctime)s] Message: %(message)s', level=logging.INFO)
     logging.info("The system has started\n")
@@ -34,7 +43,7 @@ def main() -> None:
         Database.update_news_providers_ids(client, id_data)
         logging.info(f"Iteration succeeded.")
         logging.info(f"Sleeping {TIMEOUT_SECONDS} seconds...")
-        sleep(TIMEOUT_SECONDS)
+        sleep_but_awake(TIMEOUT_SECONDS)
 
 
 if __name__ == '__main__':
