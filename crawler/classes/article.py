@@ -5,7 +5,7 @@ from typing import Tuple, Optional
 from misc.kw_searcher_v2 import kwsearcher
 from misc.analyser import analyser
 from misc.common import make_request, gen_random_str
-from misc.constants import MONTH_DICT, CENSOR_NET_HEADERS
+from misc.constants import MONTH_DICT
 
 
 class Article:

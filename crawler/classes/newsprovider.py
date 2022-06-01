@@ -4,7 +4,7 @@ from time import sleep
 from typing import Tuple, Union
 
 from misc.common import make_request, gen_random_str
-from misc.constants import MAX_IDS_PER_NEWS_PROVIDER, TIMEOUT_BETWEEN_LINKS_REQUESTS, CENSOR_NET_HEADERS
+from misc.constants import MAX_IDS_PER_NEWS_PROVIDER, TIMEOUT_BETWEEN_LINKS_REQUESTS
 from misc.exceptions import PageProcessError
 from .article import (Article, PravdaArticle, EconomyPravdaArticle,
                       EuroPravdaArticle, LifePravdaArticle,
