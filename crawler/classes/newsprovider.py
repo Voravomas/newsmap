@@ -87,6 +87,7 @@ class NewsProvider:
             except Exception as err:
                 msg = "Page of type {} failed to proces. Link: {} is skipped because of error: {}"
                 logging.info(msg.format(article_class.ARTICLE_TYPE, link, err))
+                continue
             if not processed_article["regions"]:
                 logging.info("Article is NOT added because no regions were found")
             else:
